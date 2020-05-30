@@ -9,6 +9,7 @@ module Wayforpay
     SETTLE_ENCRYPT_FIELDS = %i[merchantAccount orderReference amount currency].freeze
     VERIFY_ENCRYPT_FIELDS = %i[merchantAccount merchantDomainName orderReference amount currency].freeze
     CREATE_INVOICE_ENCRYPT_FIELDS = %i[merchantAccount merchantDomainName orderReference orderDate amount currency productName productCount productPrice].freeze
+    REMOVE_INVOICE_FIELDS = %i[merchantAccount orderReference].freeze
     ACCEPT_INVOICE_PAYMENT_ENCRYPT_FIELDS = %i[orderReference status time].freeze
     GET_CLIENT_ENCRYPT_FIELDS = %i[merchantAccount recToken card].freeze
 
@@ -42,6 +43,11 @@ module Wayforpay
       merchantTransactionSecureType: 'NON3DS',
       apiVersion: 1
     }.freeze
+
+    REMOVE_INVOICE_ATTRS = {
+      transactionType: 'REMOVE_INVOICE',
+      apiVersion: 1
+    }
 
     ACCEPT_INVOICE_PAYMENT_ATTRS = {
       status:'accept'
@@ -78,6 +84,11 @@ module Wayforpay
       CREATE_INVOICE_ATTRS.merge(
         merchantAccount: Wayforpay.merchant_account,
         merchantDomainName: Wayforpay.merchant_domain_name
+      )
+    end
+    def self.remove_invoice_params
+      REMOVE_INVOICE_ATTRS.merge(
+        merchantAccount: Wayforpay.merchant_account,
       )
     end
 

@@ -33,6 +33,12 @@ module Wayforpay
       Wayforpay::Request.(Constants::CREATE_INVOICE_ENCRYPT_FIELDS, request_params)
     end
 
+    # required attrs: orderReference
+    def self.remove_invoice(attrs = {})
+      request_params = Constants.remove_invoice_params.merge(attrs)
+      Wayforpay::Request.(Constants::REMOVE_INVOICE_FIELDS, request_params)
+    end
+
     # required attrs: orderReference, status, time
     def self.accept_invoice_payment(attrs = {})
       request_params = Constants.accept_invoice_payment_params.merge(attrs)
